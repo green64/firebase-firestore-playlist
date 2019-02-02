@@ -36,15 +36,17 @@ function renderCafe(doc) {
 //we need a promise because this may not complete immediately
 //get method is grabbing docs from firebase
 //we need 'then' method for a promise when "get" is complete our function will fire
-db.collection("cafes")
-  //refining doc retrieval to filter specific city
-  .where('city', '==', 'Manchester')
-  .get()
-  .then(snapshot => {
-    snapshot.docs.forEach(doc => {
-      renderCafe(doc);
-    })
-  });
+// db.collection("cafes")
+//   //refining doc retrieval to filter specific city
+//   // .where('city', '==', 'Marioland')
+//   // put data in order -- you can specify the element, e.g. city, name
+//   .orderBy('name')
+//   .get()
+//   .then(snapshot => {
+//     snapshot.docs.forEach(doc => {
+//       renderCafe(doc);
+//     })
+//   });
 
 //listening for & getting data
 form.addEventListener("submit", e => {
@@ -59,3 +61,20 @@ form.addEventListener("submit", e => {
   form.name.value = "";
   form.city.value = "";
 });
+
+//real-time listener working with firebase
+db.collection("cafes")
+  .orderBy("city")
+  .onSnapshot(snapshot => {
+    let changes = snapshot.docChanges();
+    changes.forEach(change => {
+      //if type is added, we render it to the DOM
+      if (change.type == "added") {
+        renderCafe(change.doc);
+        //if type is deleted, we remove it from the DOM
+      } else if (change.type == "removed") {
+        let li = cafeList.querySelector("[data-id=" + change.doc.id + "]");
+        cafeList.removeChild(li)
+      }
+    });
+  });
