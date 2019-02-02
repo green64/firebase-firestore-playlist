@@ -1,19 +1,47 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
 
-        <h1>Cloud Cafe</h1>
+<head>
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
 
-        <div class="content">
+<body>
 
-            <form id="add-cafe-form"></form>
+    <h1>Cloud Cafe</h1>
 
-            <ul id="cafe-list"></ul>
+    <div class="content">
 
-        </div>
+        <form id="add-cafe-form">
+            <input type="text" name="name" placeholder="Cafe name">
+            <input type="text" name="city" placeholder="Cafe City">
+            <button>Add Cafe</button>
+        </form>
 
-        <script src="app.js"></script>
-    </body>
+        <ul id="cafe-list"></ul>
+
+    </div>
+
+
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDDXflIuNGSIftgO5FhmdXgMD3dLF_ZxA8",
+            authDomain: "ninja-firestorm.firebaseapp.com",
+            databaseURL: "https://ninja-firestorm.firebaseio.com",
+            projectId: "ninja-firestorm",
+            storageBucket: "ninja-firestorm.appspot.com",
+            messagingSenderId: "813713380446"
+        };
+        firebase.initializeApp(config);
+        //adding these lines 
+        //db is store right here
+        const db = firebase.firestore();
+        //required so we can get snapshots and avoid errors
+        //error indicates it's no longer needed
+        // db.settings({ timestampsInSnapshots: true });
+    </script>
+    <script src="app.js"></script>
+</body>
+
 </html>
