@@ -1,4 +1,2 @@
 # firebase-firestore-playlist
-All course files for the Firebase Firestore playlist on The Net Ninja YouTube channel. 
-
-Make sure you select the correct branch to see the files :)
+I'm using this space to learn how to add, remove and manipulate data stored in Firebase. Pretty cool!
